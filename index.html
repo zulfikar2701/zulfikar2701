@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiBmaWxsPSIjMTdDM0IyIiBzdHJva2U9IiMxMTExMTEiIHN0cm9rZS13aWR0aD0iNSIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0MyIgZm9udC1mYW1pbHk9IkFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZvbnQtc2l6ZT0iMjMiIGxldHRlci1zcGFjaW5nPSIwLjUiIGZpbGw9IiMxMTExMTEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlpVTDwvdGV4dD4KPC9zdmc+Cg==">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiBmaWxsPSIjQzgxMDJFIiBzdHJva2U9IiMxMTExMTEiIHN0cm9rZS13aWR0aD0iNSIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0MyIgZm9udC1mYW1pbHk9IkFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZvbnQtc2l6ZT0iMjMiIGxldHRlci1zcGFjaW5nPSIwLjUiIGZpbGw9IiNGRkZGRkYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlpVTDwvdGV4dD4KPC9zdmc+Cg==">
 <title>Portfolio — Muhammad Zulfikar Arifin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -260,6 +260,11 @@ footer{padding:30px 0 96px;font-family:"Space Mono",monospace;font-weight:700;fo
 #toTop{position:fixed;right:18px;bottom:18px;background:var(--accent);color:var(--ink);border:3px solid var(--ink);width:54px;height:54px;font-size:22px;font-weight:900;cursor:pointer;box-shadow:4px 4px 0 var(--ink);z-index:40}
 #shortcutHelp{position:fixed;inset:0;background:rgba(17,17,17,.72);align-items:center;justify-content:center;z-index:80;padding:20px}
 #shortcutHelp .box{background:var(--paper);border:3px solid var(--ink);box-shadow:var(--shadow);padding:26px;max-width:430px;width:100%}
+.keycap{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;padding:0 9px;background:linear-gradient(180deg,#ffffff 0%,#f1efe6 100%);border:2.5px solid var(--ink);border-bottom-width:6px;border-radius:8px;box-shadow:2px 3px 0 rgba(17,17,17,.35);font-family:"Space Mono",monospace;font-weight:700;font-size:16px;line-height:1;color:var(--ink);flex-shrink:0}
+.keycap.txt{font-size:12px;letter-spacing:.04em}
+.scRow{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:2px dashed rgba(17,17,17,.22)}
+.scRow .scLabel{font-weight:700;font-size:14.5px;margin-left:6px}
+.scNote{font-family:"Space Mono",monospace;font-size:12px;font-weight:700;line-height:1.7;margin:14px 0 18px}
 
 /* ICON BADGES — poster-style replacements for brand marks with no reliable CDN icon */
 .awsBadge{background:#FF9900;color:#111;border:2px solid #111;font-family:Archivo,sans-serif;font-weight:900;font-size:10.5px;letter-spacing:.04em;padding:2.5px 6px;line-height:1;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -330,7 +335,7 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
       <a href="#contact">Contact</a>
     </nav>
     <button class="musicBtn" id="musicToggle" aria-pressed="true" title="Music + SFX on — started by the Enter button on the welcome screen; click to mute">♪ Music: On</button>
-    <span class="kbdHint">You can also use the number 1-7 to navigate this website!</span>
+    <span class="kbdHint">PRESS ? FOR SHORTCUTS</span>
   </div>
 </header>
 
@@ -896,12 +901,20 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
 <div id="shortcutHelp" hidden>
   <div class="box" role="dialog" aria-modal="true" aria-labelledby="sh-title">
     <h3 id="sh-title" class="anton" style="margin-top:0;font-size:24px;text-transform:uppercase">Keyboard shortcuts</h3>
-    <ul class="mono" style="line-height:2.1;font-size:13px;font-weight:700;padding-left:18px">
-      <li>1 — Overview &nbsp; 2 — Abroad &nbsp; 3 — Experience &nbsp; 4 — Football</li>
-      <li>5 — Projects &nbsp; 6 — Stack &nbsp; 7 — Credentials &nbsp; 8 — Contact</li>
-      <li>← → in filter — move &nbsp; Esc — close details / this dialog</li>
-      <li>♪ Music + clicks start when you press Enter on the welcome screen — toggle in the top bar to mute</li>
-    </ul>
+    <div>
+      <div class="scRow"><span class="keycap" aria-hidden="true">1</span><span class="scLabel">Overview</span></div>
+      <div class="scRow"><span class="keycap" aria-hidden="true">2</span><span class="scLabel">Abroad</span></div>
+      <div class="scRow"><span class="keycap" aria-hidden="true">3</span><span class="scLabel">Experience</span></div>
+      <div class="scRow"><span class="keycap" aria-hidden="true">4</span><span class="scLabel">Football</span></div>
+      <div class="scRow"><span class="keycap" aria-hidden="true">5</span><span class="scLabel">Projects</span></div>
+      <div class="scRow"><span class="keycap" aria-hidden="true">6</span><span class="scLabel">Stack</span></div>
+      <div class="scRow"><span class="keycap" aria-hidden="true">7</span><span class="scLabel">Credentials</span></div>
+      <div class="scRow"><span class="keycap" aria-hidden="true">8</span><span class="scLabel">Contact</span></div>
+      <div class="scRow"><span class="keycap" aria-hidden="true">←</span><span class="keycap" aria-hidden="true">→</span><span class="scLabel">Move in the project filter</span></div>
+      <div class="scRow"><span class="keycap txt" aria-hidden="true">Esc</span><span class="scLabel">Close details / this dialog</span></div>
+      <div class="scRow" style="border-bottom:0"><span class="keycap" aria-hidden="true">?</span><span class="scLabel">Open this shortcuts popup</span></div>
+    </div>
+    <p class="scNote">♪ Music + clicks start when you press Enter on the welcome screen — toggle in the top bar to mute.</p>
     <button id="closeHelp" class="btn btn-black" style="width:100%">Close (Esc)</button>
   </div>
 </div>
@@ -973,7 +986,7 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
     sections.forEach(function(id){ var el=document.getElementById(id); if(el) so.observe(el); });
   }
 
-  // Keyboard shortcuts 1-6 and ?
+  // Keyboard shortcuts 1-8 and ?
   document.getElementById('closeHelp').addEventListener('click',hideHelp);
   helpBox.addEventListener('click',function(e){ if(e.target===helpBox) hideHelp(); });
   document.addEventListener('keydown',function(e){
