@@ -1130,6 +1130,28 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
     o.connect(g); g.connect(sfxGain); o.start(t); o.stop(t+dur+0.05);
   }
   function sfxClick(){ blip(340,0.05,0.13,'triangle'); }
+  // Goofy "doot" for key presses: a short nasal triangle toot whose pitch
+  // pops up fast, then gets "sucked" back down — with a random base pitch
+  // each press so mashing keys sounds like a tiny comedy horn section.
+  var lastDoot=0;
+  function sfxDoot(){
+    if(!soundOn||!ctx||ctx.state!=='running') return;
+    var t=ctx.currentTime;
+    if(t-lastDoot<0.045) return; // don't stack into a buzz on very fast repeats
+    lastDoot=t;
+    var base=330+Math.random()*190; // 330–520 Hz, different every press
+    var o=ctx.createOscillator(), g=ctx.createGain(), f=ctx.createBiquadFilter();
+    o.type='triangle';
+    o.frequency.setValueAtTime(base*0.72,t);
+    o.frequency.exponentialRampToValueAtTime(base*1.38,t+0.03);
+    o.frequency.exponentialRampToValueAtTime(base*0.58,t+0.16);
+    f.type='lowpass'; f.frequency.value=1700; f.Q.value=2.5;
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(0.24,t+0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+0.18);
+    o.connect(f); f.connect(g); g.connect(sfxGain);
+    o.start(t); o.stop(t+0.22);
+  }
   function sfxChime(){ if(!ctx) return; var was=soundOn; soundOn=true; blip(659.25,0.35,0.17,'sine'); setTimeout(function(){ blip(987.77,0.45,0.15,'sine'); },110); soundOn=was||soundOn; }
 
   // ---- Enter gate: the one deliberate tap that unlocks audio and reveals the page ----
@@ -1195,6 +1217,17 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
     if(t.id==='musicToggle') return;
     if(gate&&gate.contains(t)) return;
     sfxClick();
+  });
+  // Every key press gets a "doot" too — navigation keys (1–8, ?, Esc),
+  // filter arrows, Enter/Space on buttons, plain typing, all of it. This
+  // listener only plays the sound: it never prevents or stops the key, so
+  // every existing shortcut keeps working exactly as before. Held-key
+  // auto-repeat and bare modifier presses (Shift/Ctrl/Alt/Meta on their
+  // own) stay silent, and like all SFX here it obeys the mute toggle.
+  document.addEventListener('keydown',function(e){
+    if(e.repeat) return;
+    if(e.key==='Shift'||e.key==='Control'||e.key==='Alt'||e.key==='Meta') return;
+    sfxDoot();
   });
 })();
 </script>
