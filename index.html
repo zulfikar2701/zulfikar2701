@@ -23,6 +23,8 @@ html{scroll-behavior:smooth; scroll-padding-top:92px}
 body{margin:0;background:var(--paper);background-image:radial-gradient(rgba(17,17,17,.07) 1.2px, transparent 1.2px);background-size:22px 22px;color:var(--ink);font-family:Archivo,system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit}
 :focus-visible{outline:4px solid var(--blue); outline-offset:3px}
+/* The hero title only ever receives programmatic focus (after the Enter gate, so assistive tech lands in the right place). It is not interactive, so it must never draw the blue focus outline visitors saw after pressing Enter. */
+#hero-title:focus{outline:none}
 .skip{position:absolute;left:16px;top:-70px;background:var(--ink);color:#fff;padding:10px 16px;font-weight:700;z-index:100;border:3px solid var(--ink)}
 .skip:focus{top:12px}
 .mono{font-family:"Space Mono",monospace}
@@ -38,7 +40,8 @@ nav.main a{font-family:"Space Mono",monospace;font-size:12.5px;font-weight:700;l
 nav.main a:hover{border-color:var(--ink);background:var(--yellow)}
 nav.main a.active{background:var(--ink);color:#fff}
 .menuBtn{display:none;background:var(--yellow);border:3px solid var(--ink);color:var(--ink);padding:10px 16px;font-weight:900;text-transform:uppercase;min-height:44px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);font-family:Archivo,sans-serif}
-.kbdHint{font-family:"Space Mono",monospace;font-size:11px;background:#fff;border:2px solid var(--ink);padding:5px 8px;max-width:210px;line-height:1.4}
+.kbdHint{font-family:"Space Mono",monospace;font-size:11px;background:#fff;border:2px solid var(--ink);padding:5px 8px;max-width:210px;line-height:1.4;cursor:pointer;text-align:left}
+.kbdHint:hover{background:var(--yellow)}
 .builtNote{font-family:"Space Mono",monospace;font-weight:700;font-size:11.5px;line-height:1.7;border-top:2.5px dashed var(--ink);padding:14px 0 0;margin:-70px 0 44px}
 @media(max-width:900px){
   nav.main{display:none;position:absolute;top:72px;left:0;right:0;background:var(--paper);flex-direction:column;padding:12px;border-bottom:3px solid var(--ink);gap:6px}
@@ -335,7 +338,7 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
       <a href="#contact">Contact</a>
     </nav>
     <button class="musicBtn" id="musicToggle" aria-pressed="true" title="Music + SFX on — started by the Enter button on the welcome screen; click to mute">♪ Music: On</button>
-    <span class="kbdHint">PRESS ? FOR SHORTCUTS</span>
+    <button class="kbdHint" id="shortcutsBtn" type="button" aria-haspopup="dialog" title="Open the keyboard shortcuts popup">PRESS ? FOR SHORTCUTS</button>
   </div>
 </header>
 
@@ -600,7 +603,7 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
         <span class="num-tag">Chapter 02 — The work</span>
         <h2 id="proj-title">Projects</h2>
         <svg class="scribble" width="300" height="24" viewBox="0 0 300 24" aria-hidden="true"><path d="M4 14 C 55 5, 105 20, 160 11 S 260 7, 296 13" fill="none" stroke="#3E90F0" stroke-width="7" stroke-linecap="round"/></svg>
-        <p class="sub">Eight builds from the CV. Filter by focus — use ← → arrow keys in the filter, Enter to open details, Esc to close.</p>
+        <p class="sub">Eight builds from the CV. Filter by focus — Enter to open details, Esc to close.</p>
       </div>
 
       <div class="filterBar" id="filterBar" role="group" aria-label="Filter projects">
@@ -910,7 +913,6 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
       <div class="scRow"><span class="keycap" aria-hidden="true">6</span><span class="scLabel">Stack</span></div>
       <div class="scRow"><span class="keycap" aria-hidden="true">7</span><span class="scLabel">Credentials</span></div>
       <div class="scRow"><span class="keycap" aria-hidden="true">8</span><span class="scLabel">Contact</span></div>
-      <div class="scRow"><span class="keycap" aria-hidden="true">←</span><span class="keycap" aria-hidden="true">→</span><span class="scLabel">Move in the project filter</span></div>
       <div class="scRow"><span class="keycap txt" aria-hidden="true">Esc</span><span class="scLabel">Close details / this dialog</span></div>
       <div class="scRow" style="border-bottom:0"><span class="keycap" aria-hidden="true">?</span><span class="scLabel">Open this shortcuts popup</span></div>
     </div>
@@ -988,6 +990,10 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
 
   // Keyboard shortcuts 1-8 and ?
   document.getElementById('closeHelp').addEventListener('click',hideHelp);
+  // The "PRESS ? FOR SHORTCUTS" hint in the top bar is a real button too —
+  // clicking it opens the same popup as pressing the ? key.
+  var scBtn=document.getElementById('shortcutsBtn');
+  if(scBtn) scBtn.addEventListener('click',function(){ showHelp(); document.getElementById('closeHelp').focus(); });
   helpBox.addEventListener('click',function(e){ if(e.target===helpBox) hideHelp(); });
   document.addEventListener('keydown',function(e){
     if(e.target.matches('input,textarea,select')||e.metaKey||e.ctrlKey||e.altKey) return;
@@ -1123,7 +1129,6 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
     g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
     o.connect(g); g.connect(sfxGain); o.start(t); o.stop(t+dur+0.05);
   }
-  function sfxPop(){ blip(620,0.09,0.21,'triangle'); setTimeout(function(){ blip(880,0.08,0.15,'triangle'); },35); }
   function sfxClick(){ blip(340,0.05,0.13,'triangle'); }
   function sfxChime(){ if(!ctx) return; var was=soundOn; soundOn=true; blip(659.25,0.35,0.17,'sine'); setTimeout(function(){ blip(987.77,0.45,0.15,'sine'); },110); soundOn=was||soundOn; }
 
@@ -1178,10 +1183,19 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
       stopMusic();
     }
   });
-  // Wire subtle SFX into existing controls
-  document.querySelectorAll('.filterBtn').forEach(function(b){ b.addEventListener('click',sfxPop); });
-  document.querySelectorAll('.detailsBtn').forEach(function(b){ b.addEventListener('click',sfxClick); });
-  document.querySelectorAll('nav.main a, .btn').forEach(function(a){ a.addEventListener('click',sfxClick); });
+  // One shared click SFX for EVERY link and button on the page — nav, hero
+  // CTAs, GitHub / LinkedIn / email / contact links, filters, details
+  // toggles, back-to-top, all of them — via a single delegated listener, so
+  // nothing clickable is silent. Two exceptions, which make their own
+  // sounds: the Enter gate (welcome chime / deliberate silence when muted)
+  // and the music toggle (chime when switched on).
+  document.addEventListener('click',function(e){
+    var t=(e.target&&e.target.closest)?e.target.closest('a,button'):null;
+    if(!t) return;
+    if(t.id==='musicToggle') return;
+    if(gate&&gate.contains(t)) return;
+    sfxClick();
+  });
 })();
 </script>
 <script type="text/javascript" async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
