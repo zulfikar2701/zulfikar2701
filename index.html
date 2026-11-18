@@ -100,7 +100,8 @@ section{padding:70px 0 80px}
 .spin-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px}
 @media(max-width:640px){.spin-wrap{display:none}}
 /* stats */
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:520px){.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}}
 .stat{border:3px solid var(--ink);box-shadow:var(--shadow-sm);padding:18px;background:#fff}
 .stat strong{font-family:Anton,sans-serif;font-size:42px;line-height:1;display:block}
 .stat span{font-family:"Space Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
@@ -377,7 +378,7 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
         <div>
           <p class="lede">Nearly 3 years delivering production Data &amp; AI for Japanese clients in <strong>banking, FMCG, automotive &amp; insurance</strong>. I build AWS data lakes, RAG assistants, and natural-language interfaces that let people get answers from data by <strong>just asking</strong>.</p>
           <div class="ctaRow">
-            <a class="btn btn-black" href="#projects">See the 8 projects →</a>
+            <a class="btn btn-black" href="#projects">See the projects →</a>
             <a class="btn btn-blue" href="https://drive.google.com/file/d/1HIEj5UoVniX8W8xama6-rHIxCEyFXibu/view?usp=sharing" target="_blank" rel="noopener">See my CV ↗</a>
             <a class="btn" href="#contact">Get in touch</a>
           </div>
@@ -394,13 +395,12 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
         <div>
           <div class="stats" aria-label="Highlights">
             <div class="stat"><strong>3 YRS</strong><span>Data &amp; AI delivery</span></div>
-            <div class="stat"><strong>8</strong><span>Projects shipped</span></div>
             <div class="stat"><strong>3×</strong><span>Google Cloud certified</span></div>
             <div class="stat"><strong>4</strong><span>Industries served</span></div>
           </div>
           <div class="stickers" style="margin-top:18px">
             <div class="sticker st-p"><small>Certified</small>3× Google Cloud — valid to Dec 2027</div>
-            <div class="sticker st-g"><small>Specialty</small>Self-hosted LLMs with vLLM — no external APIs</div>
+            <div class="sticker st-g"><small>Data and AI</small>Self-hosted LLMs with vLLM — no external APIs</div>
           </div>
           <div class="nowCard">
             <h3>Now @ NTT DATA</h3>
