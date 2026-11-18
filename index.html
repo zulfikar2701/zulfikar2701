@@ -376,7 +376,7 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
 
       <div class="hero-grid">
         <div>
-          <p class="lede">Nearly 3 years delivering production Data &amp; AI for Japanese clients in <strong>banking, FMCG, automotive &amp; insurance</strong>. I build AWS data lakes, RAG assistants, and natural-language interfaces that let people get answers from data by <strong>just asking</strong>.</p>
+          <p class="lede">4+ years delivering production Data &amp; AI for Japanese clients in <strong>banking, FMCG, automotive &amp; insurance</strong>. I build AWS data lakes, RAG assistants, and natural-language interfaces that let people get answers from data by <strong>just asking</strong>.</p>
           <div class="ctaRow">
             <a class="btn btn-black" href="#projects">See the projects →</a>
             <a class="btn btn-blue" href="https://drive.google.com/file/d/1HIEj5UoVniX8W8xama6-rHIxCEyFXibu/view?usp=sharing" target="_blank" rel="noopener">See my CV ↗</a>
@@ -394,7 +394,7 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
         </div>
         <div>
           <div class="stats" aria-label="Highlights">
-            <div class="stat"><strong>3 YRS</strong><span>Data &amp; AI delivery</span></div>
+            <div class="stat"><strong>4+ YRS</strong><span>Data &amp; AI delivery</span></div>
             <div class="stat"><strong>3×</strong><span>Google Cloud certified</span></div>
             <div class="stat"><strong>4</strong><span>Industries served</span></div>
           </div>
@@ -603,17 +603,17 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
         <span class="num-tag">Chapter 02 — The work</span>
         <h2 id="proj-title">Projects</h2>
         <svg class="scribble" width="300" height="24" viewBox="0 0 300 24" aria-hidden="true"><path d="M4 14 C 55 5, 105 20, 160 11 S 260 7, 296 13" fill="none" stroke="#3E90F0" stroke-width="7" stroke-linecap="round"/></svg>
-        <p class="sub">Eight builds from the CV. Filter by focus — Enter to open details, Esc to close.</p>
+        <p class="sub">Ten builds from the CV. Filter by focus — Enter to open details, Esc to close.</p>
       </div>
 
       <div class="filterBar" id="filterBar" role="group" aria-label="Filter projects">
-        <button class="filterBtn" data-filter="all" aria-pressed="true" tabindex="0">All · 8</button>
+        <button class="filterBtn" data-filter="all" aria-pressed="true" tabindex="0">All · 10</button>
         <button class="filterBtn" data-filter="data" aria-pressed="false" tabindex="-1">Data Engineering</button>
         <button class="filterBtn" data-filter="llm" aria-pressed="false" tabindex="-1">LLM / GenAI</button>
         <button class="filterBtn" data-filter="cv" aria-pressed="false" tabindex="-1">Computer Vision</button>
         <button class="filterBtn" data-filter="ml" aria-pressed="false" tabindex="-1">ML / Analytics</button>
       </div>
-      <p class="live" id="filterLive" aria-live="polite">Showing all 8 projects.</p>
+      <p class="live" id="filterLive" aria-live="polite">Showing all 10 projects.</p>
 
       <div class="projects" id="projectGrid">
         <article class="card" data-cat="data">
@@ -746,6 +746,41 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
           </div>
           <button class="detailsBtn" aria-expanded="false">Details ↓</button>
           <div class="details" hidden>Built an ETL workflow consolidating 2019–2021 waste management data from multiple sources into BigQuery. Applied statistical hypothesis testing and delivered an interactive dashboard of the findings.</div>
+          </div>
+        </article>
+
+        <article class="card" data-cat="llm">
+          <div class="cardStrip"></div><div class="cardBody">
+          <div class="cardTop"><span class="idx">09</span><span class="year">2025</span></div>
+          <div class="cat">LLM / GenAI</div>
+          <h3>Knowledge Center Chatbot — AWS Bedrock RAG</h3>
+          <p>Ask the whole knowledge base in one chat. RAG on AWS Bedrock with Amazon Nova models, ingesting Word, PDF, emails, Excel, PowerPoint, diagrams and messaging channels.</p>
+          <div class="stackIcons">
+            <span class="stackItem"><span class="awsBadge">AWS</span> Bedrock</span>
+            <span class="stackItem"><span class="monoBadge">N</span> Amazon Nova</span>
+            <span class="stackItem"><span class="monoBadge">R</span> RAG</span>
+            <span class="stackItem"><img src="https://cdn.simpleicons.org/python" alt="" onerror="__iconFallback(this)" data-fallback="Python"> Python</span>
+          </div>
+          <button class="detailsBtn" aria-expanded="false">Details ↓</button>
+          <div class="details" hidden>Built a Knowledge Center chatbot on AWS Bedrock using Retrieval-Augmented Generation (RAG) with Amazon Nova models. The system ingests a wide range of source formats — Word documents, PDFs, emails, Excel spreadsheets, PowerPoint decks, diagrams and messaging channel content — and makes them searchable through natural conversation, so users can get answers from scattered company knowledge by just asking, instead of hunting through files and inboxes.</div>
+          </div>
+        </article>
+
+        <article class="card" data-cat="llm">
+          <div class="cardStrip"></div><div class="cardBody">
+          <div class="cardTop"><span class="idx">10</span><span class="year">2025</span></div>
+          <div class="cat">LLM / GenAI</div>
+          <h3>Policy Reconciliation with OJK Regulations</h3>
+          <p>Check a draft banking policy against the rules before it ships. Fully local deployment — vLLM + Qwen 2.5 7B + pgvector on a single 24 GB VRAM GPU, no data leaves the building.</p>
+          <div class="stackIcons">
+            <span class="stackItem"><span class="monoBadge">v</span> vLLM</span>
+            <span class="stackItem"><span class="monoBadge">Q</span> Qwen 2.5 7B</span>
+            <span class="stackItem"><span class="monoBadge">pg</span> pgvector</span>
+            <span class="stackItem"><img src="https://cdn.simpleicons.org/postgresql" alt="" onerror="__iconFallback(this)" data-fallback="PostgreSQL"> PostgreSQL</span>
+            <span class="stackItem"><img src="https://cdn.simpleicons.org/python" alt="" onerror="__iconFallback(this)" data-fallback="Python"> Python</span>
+          </div>
+          <button class="detailsBtn" aria-expanded="false">Details ↓</button>
+          <div class="details" hidden>Built a policy reconciliation system for a banking organisation that wants to introduce a new policy and needs to make sure it stays in line with OJK (Otoritas Jasa Keuangan) regulations and rules from other Indonesian government institutions covering money and finance. Regulations are embedded and retrieved with pgvector, and drafts are checked against them by a locally deployed Qwen 2.5 7B model served with vLLM — the whole stack runs on a single 24 GB VRAM GPU, so sensitive policy documents never leave the organisation.</div>
           </div>
         </article>
       </div>
