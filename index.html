@@ -268,6 +268,19 @@ footer{padding:30px 0 96px;font-family:"Space Mono",monospace;font-weight:700;fo
 .tabBadge{background:#4E79A7;color:#fff;border:2px solid #111;font-family:Archivo,sans-serif;font-weight:900;font-size:11px;width:20px;height:20px;line-height:1;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
 .fallbackBadge{background:#FF9900;color:#111;border:2px solid #111;font-family:"Space Mono",monospace;font-weight:700;font-size:9.5px;letter-spacing:.02em;padding:2px 5px;line-height:1.2;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;max-width:74px;text-align:center}
 .chipBadge{background:#fff;color:#111;border:2px solid #111;font-family:Archivo,sans-serif;font-weight:900;font-size:10px;letter-spacing:.03em;padding:2.5px 6px;line-height:1;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+/* ENTER GATE — one tap that unlocks audio + reveals the page */
+#enterGate{position:fixed;inset:0;z-index:200;background:var(--paper);background-image:radial-gradient(rgba(17,17,17,.07) 1.2px, transparent 1.2px);background-size:22px 22px;display:flex;align-items:center;justify-content:center;padding:20px;transition:opacity .35s ease}
+#enterGate.gone{opacity:0;pointer-events:none}
+body.gated{overflow:hidden}
+.gateCard{background:#fff;border:3px solid var(--ink);box-shadow:var(--shadow);padding:30px 28px;max-width:460px;width:100%;transform:rotate(-.6deg)}
+.gateCard .gateTag{display:inline-block;font-family:"Space Mono",monospace;font-weight:700;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;background:var(--accent);border:2.5px solid var(--ink);padding:5px 10px;transform:rotate(-1.5deg)}
+.gateCard h2{font-family:Anton,sans-serif;font-weight:400;font-size:clamp(30px,6vw,40px);line-height:1.05;text-transform:uppercase;margin:16px 0 0}
+.gateCard h2 em{font-style:normal;color:var(--blue)}
+.gateCard p{font-size:15px;line-height:1.65;margin:12px 0 0}
+.gateCard p strong{background:var(--yellow);padding:0 4px}
+.gateCard .btn{width:100%;margin-top:22px}
+.gateMuted{display:block;margin:14px auto 0;background:none;border:0;border-bottom:2px solid var(--ink);padding:4px 2px;font-family:"Space Mono",monospace;font-weight:700;font-size:12px;cursor:pointer;color:var(--ink)}
+.gateMuted:hover{background:var(--cyan)}
 /* MUSIC TOGGLE */
 .musicBtn{background:#fff;border:3px solid var(--ink);color:var(--ink);padding:9px 13px;font-family:"Space Mono",monospace;font-weight:700;font-size:12px;letter-spacing:.03em;cursor:pointer;box-shadow:4px 4px 0 var(--ink);min-height:44px;white-space:nowrap;text-transform:uppercase}
 .musicBtn:hover{background:var(--yellow)}
@@ -279,9 +292,20 @@ footer{padding:30px 0 96px;font-family:"Space Mono",monospace;font-weight:700;fo
 window.__iconFallback=function(img){try{if(img.dataset.fbDone)return;img.dataset.fbDone='1';var label=img.getAttribute('data-fallback')||'?';var b=document.createElement('span');b.className='fallbackBadge';b.textContent=label;b.setAttribute('aria-hidden','true');img.replaceWith(b);}catch(e){}};
 document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG')window.__iconFallback(t);},true);
 </script>
+<noscript><style>#enterGate{display:none !important}</style></noscript>
 </head>
-<body>
+<body class="gated">
 <a class="skip" href="#main">Skip to content</a>
+
+<div id="enterGate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="gateCard">
+    <span class="gateTag">♪ Sound on</span>
+    <h2 id="gate-title">This portfolio has <em>music &amp; SFX</em></h2>
+    <p>There's calm background music and <strong>satisfying click &amp; pop sound effects</strong> all over this page — but browsers only let sound start after a tap. This button is that tap.</p>
+    <button class="btn btn-black" id="enterBtn" type="button">Enter — turn the sound on ♪</button>
+    <button class="gateMuted" id="enterMuted" type="button">Rather stay quiet? Enter muted instead</button>
+  </div>
+</div>
 
 <header class="topbar">
   <div class="topbar-inner">
@@ -297,7 +321,7 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
       <a href="#credentials">Credentials</a>
       <a href="#contact">Contact</a>
     </nav>
-    <button class="musicBtn" id="musicToggle" aria-pressed="true" title="Music + SFX on by default — starts on your first tap or click (browser rule); click to mute">♪ Music: On</button>
+    <button class="musicBtn" id="musicToggle" aria-pressed="true" title="Music + SFX on — started by the Enter button on the welcome screen; click to mute">♪ Music: On</button>
     <span class="kbdHint">You can also use the number 1-7 to navigate this website!</span>
   </div>
 </header>
@@ -869,7 +893,7 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
       <li>1 — Overview &nbsp; 2 — Abroad &nbsp; 3 — Experience &nbsp; 4 — Football</li>
       <li>5 — Projects &nbsp; 6 — Stack &nbsp; 7 — Credentials &nbsp; 8 — Contact</li>
       <li>← → in filter — move &nbsp; Esc — close details / this dialog</li>
-      <li>♪ Music + clicks are on by default (they start on your first tap/click) — toggle in the top bar to mute</li>
+      <li>♪ Music + clicks start when you press Enter on the welcome screen — toggle in the top bar to mute</li>
     </ul>
     <button id="closeHelp" class="btn btn-black" style="width:100%">Close (Esc)</button>
   </div>
@@ -983,7 +1007,7 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
     if(!AC) return;
     ctx=new AC();
     musicGain=ctx.createGain(); musicGain.gain.value=0.065; musicGain.connect(ctx.destination);
-    sfxGain=ctx.createGain(); sfxGain.gain.value=0.5; sfxGain.connect(ctx.destination);
+    sfxGain=ctx.createGain(); sfxGain.gain.value=0.8; sfxGain.connect(ctx.destination);
   }
   function pianoTone(freq, t, dur, vol){
     var o=ctx.createOscillator(), o2=ctx.createOscillator(), g=ctx.createGain(), f=ctx.createBiquadFilter();
@@ -1079,9 +1103,46 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
     g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
     o.connect(g); g.connect(sfxGain); o.start(t); o.stop(t+dur+0.05);
   }
-  function sfxPop(){ blip(620,0.09,0.12,'triangle'); setTimeout(function(){ blip(880,0.08,0.08,'triangle'); },35); }
-  function sfxClick(){ blip(340,0.05,0.07,'triangle'); }
-  function sfxChime(){ if(!ctx) return; var was=soundOn; soundOn=true; blip(659.25,0.35,0.10,'sine'); setTimeout(function(){ blip(987.77,0.45,0.09,'sine'); },110); soundOn=was||soundOn; }
+  function sfxPop(){ blip(620,0.09,0.21,'triangle'); setTimeout(function(){ blip(880,0.08,0.15,'triangle'); },35); }
+  function sfxClick(){ blip(340,0.05,0.13,'triangle'); }
+  function sfxChime(){ if(!ctx) return; var was=soundOn; soundOn=true; blip(659.25,0.35,0.17,'sine'); setTimeout(function(){ blip(987.77,0.45,0.15,'sine'); },110); soundOn=was||soundOn; }
+
+  // ---- Enter gate: the one deliberate tap that unlocks audio and reveals the page ----
+  var gate=document.getElementById('enterGate');
+  var enterBtn=document.getElementById('enterBtn');
+  var enterMuted=document.getElementById('enterMuted');
+  function revealPage(){
+    if(gate&&!gate.classList.contains('gone')){
+      gate.classList.add('gone');
+      setTimeout(function(){ gate.hidden=true; },420);
+    }
+    document.body.classList.remove('gated');
+    var h=document.getElementById('hero-title');
+    if(h){ h.setAttribute('tabindex','-1'); h.focus({preventScroll:true}); }
+  }
+  if(enterBtn){
+    enterBtn.focus();
+    enterBtn.addEventListener('click',function(){
+      revealPage();
+      startMusic(); // the click IS the user gesture, so the AudioContext can run now
+      setTimeout(sfxChime,80); // a little welcome chime so the SFX make themselves known
+    });
+  }
+  if(enterMuted){
+    // pointerdown fires before the document-level "start on first gesture"
+    // listener, so flipping soundOn here keeps the muted entry silent.
+    enterMuted.addEventListener('pointerdown',function(){
+      soundOn=false;
+      toggle.setAttribute('aria-pressed','false');
+      toggle.textContent='♪ Music: Off';
+    });
+    enterMuted.addEventListener('click',function(){
+      soundOn=false;
+      toggle.setAttribute('aria-pressed','false');
+      toggle.textContent='♪ Music: Off';
+      revealPage();
+    });
+  }
 
   toggle.addEventListener('click',function(){
     if(!soundOn){
